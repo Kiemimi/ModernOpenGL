@@ -154,9 +154,16 @@
     <ClCompile Include="src\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\GLFWCallbacks.h" />
     <ClInclude Include="src\stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\colors.fs" />
+    <None Include="Assets\Shaders\colors.vs" />
+    <None Include="Assets\Shaders\light_cube.fs" />
+    <None Include="Assets\Shaders\light_cube.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
