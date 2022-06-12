@@ -35,5 +35,14 @@
     <ClInclude Include="src\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\colors.vs" />
+    <None Include="Assets\Shaders\colors.fs" />
+    <None Include="Assets\Shaders\light_cube.fs" />
+    <None Include="Assets\Shaders\light_cube.vs" />
   </ItemGroup>
 </Project>
