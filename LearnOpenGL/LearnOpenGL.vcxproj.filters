@@ -27,6 +27,9 @@
     <ClCompile Include="src\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLFWCallbacks.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -64,10 +70,16 @@
     <None Include="Assets\Shaders\Vertex\TestVertexShader.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Assets\Shaders\Fragment\EvenMoreColours.frag" />
-    <None Include="Assets\Shaders\Fragment\Phong.frag" />
+    <None Include="Assets\Shaders\Fragment\Phong.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Assets\Shaders\Fragment\EvenMoreColours.frag">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Assets\Shaders\Fragment\MoreColours.frag" />
+    <Text Include="Assets\Shaders\Fragment\MoreColours.frag">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
