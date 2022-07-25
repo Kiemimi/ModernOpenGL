@@ -57,7 +57,7 @@ int main()
     //stbi_set_flip_vertically_on_load(true);
     glEnable(GL_DEPTH_TEST);
     
-    Shader phongShader("Assets/Shaders/Vertex/colors.vert", "Assets/Shaders/Fragment/Phong.frag");
+    Shader phongShader("Assets/Shaders/Vertex/colors.vert", "Assets/Shaders/Fragment/TestFragmentShader.frag");
     Model ourModel((char*)"Assets/Models/Katana/scene.gltf");
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -81,6 +81,29 @@ int main()
 
         // don't forget to enable shader before setting uniforms
         phongShader.use();
+        phongShader.setVec3("viewPos", camera.Position);
+        phongShader.setFloat("material.shininess", 32.0f);
+
+        phongShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+        phongShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+        phongShader.setVec3("dirLight.diffuse", 0.6f, 0.6f, 0.6f);
+        phongShader.setVec3("dirLight.specular", 0.7f, 0.7f, 0.7f);
+
+        phongShader.setVec3("pointLights[0].position", glm::vec3(1.0f, 5.0f, 5.0f));
+        phongShader.setVec3("pointLights[0].ambient", 0.00f, 0.00f, 0.05f);
+        phongShader.setVec3("pointLights[0].diffuse", 0.0f, 0.0f, 0.8f);
+        phongShader.setVec3("pointLights[0].specular", 0.0f, 0.0f, 1.0f);
+        phongShader.setFloat("pointLights[0].constant", 1.0f);
+        phongShader.setFloat("pointLights[0].linear", 0.09f);
+        phongShader.setFloat("pointLights[0].quadratic", 0.032f);
+
+        phongShader.setVec3("pointLights[1].position", glm::vec3(1.0f, 5.0f, -5.0f));
+        phongShader.setVec3("pointLights[1].ambient", 0.05f, 0.00f, 0.00f);
+        phongShader.setVec3("pointLights[1].diffuse", 0.8f, 0.0f, 0.0f);
+        phongShader.setVec3("pointLights[1].specular", 1.0f, 0.0f, 0.0f);
+        phongShader.setFloat("pointLights[1].constant", 1.0f);
+        phongShader.setFloat("pointLights[1].linear", 0.09f);
+        phongShader.setFloat("pointLights[1].quadratic", 0.032f);
 
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
@@ -94,7 +117,6 @@ int main()
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
         phongShader.setMat4("model", model);
         ourModel.Draw(phongShader);
-
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
