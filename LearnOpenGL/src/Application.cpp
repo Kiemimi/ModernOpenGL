@@ -14,8 +14,8 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window);
 
-const unsigned int SCREEN_WIDTH = 800;
-const unsigned int SCREEN_HEIGHT = 600;
+const unsigned int SCREEN_WIDTH = 1280;
+const unsigned int SCREEN_HEIGHT = 720;
 
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = SCREEN_WIDTH / 2.0f;
@@ -58,7 +58,7 @@ int main()
     glEnable(GL_DEPTH_TEST);
     
     Shader phongShader("Assets/Shaders/Vertex/colors.vert", "Assets/Shaders/Fragment/TestFragmentShader.frag");
-    Model ourModel((char*)"Assets/Models/Katana/scene.gltf");
+    Model ourModel((char*)"Assets/Models/the_bathroom_free/scene.gltf");
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -76,7 +76,7 @@ int main()
 
         // render
         // ------
-        glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+        glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // don't forget to enable shader before setting uniforms
@@ -85,11 +85,11 @@ int main()
         phongShader.setFloat("material.shininess", 32.0f);
 
         phongShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-        phongShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+        phongShader.setVec3("dirLight.ambient", 0.35f, 0.35f, 0.35f);
         phongShader.setVec3("dirLight.diffuse", 0.6f, 0.6f, 0.6f);
         phongShader.setVec3("dirLight.specular", 0.7f, 0.7f, 0.7f);
 
-        phongShader.setVec3("pointLights[0].position", glm::vec3(1.0f, 5.0f, 5.0f));
+        phongShader.setVec3("pointLights[0].position", glm::vec3(1.0f, 2.0f, 3.0f));
         phongShader.setVec3("pointLights[0].ambient", 0.00f, 0.00f, 0.05f);
         phongShader.setVec3("pointLights[0].diffuse", 0.0f, 0.0f, 0.8f);
         phongShader.setVec3("pointLights[0].specular", 0.0f, 0.0f, 1.0f);
@@ -97,7 +97,7 @@ int main()
         phongShader.setFloat("pointLights[0].linear", 0.09f);
         phongShader.setFloat("pointLights[0].quadratic", 0.032f);
 
-        phongShader.setVec3("pointLights[1].position", glm::vec3(1.0f, 5.0f, -5.0f));
+        phongShader.setVec3("pointLights[1].position", glm::vec3(1.0f, 2.0f, 0.0f));
         phongShader.setVec3("pointLights[1].ambient", 0.05f, 0.00f, 0.00f);
         phongShader.setVec3("pointLights[1].diffuse", 0.8f, 0.0f, 0.0f);
         phongShader.setVec3("pointLights[1].specular", 1.0f, 0.0f, 0.0f);
