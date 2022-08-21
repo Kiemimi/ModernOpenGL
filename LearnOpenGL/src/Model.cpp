@@ -11,6 +11,7 @@ void Model::loadModel(string const& path)
 		aiProcess_ValidateDataStructure | 
 		aiProcess_Triangulate			| 
 		aiProcess_JoinIdenticalVertices |
+		aiProcess_PreTransformVertices  |
 		aiProcess_FlipUVs				|
 		aiProcess_SortByPType);
 

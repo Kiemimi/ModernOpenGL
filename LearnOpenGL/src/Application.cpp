@@ -58,7 +58,7 @@ int main()
     glEnable(GL_DEPTH_TEST);
     
     Shader phongShader("Assets/Shaders/Vertex/colors.vert", "Assets/Shaders/Fragment/TestFragmentShader.frag");
-    Model ourModel((char*)"Assets/Models/the_bathroom_free/scene.gltf");
+    Model ourModel((char*)"Assets/Models/backpack/backpack.obj");
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -91,16 +91,16 @@ int main()
 
         phongShader.setVec3("pointLights[0].position", glm::vec3(1.0f, 2.0f, 3.0f));
         phongShader.setVec3("pointLights[0].ambient", 0.00f, 0.00f, 0.05f);
-        phongShader.setVec3("pointLights[0].diffuse", 0.0f, 0.0f, 0.8f);
-        phongShader.setVec3("pointLights[0].specular", 0.0f, 0.0f, 1.0f);
+        phongShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+        phongShader.setVec3("pointLights[0].specular", 0.4f, 0.4f, 0.4f);
         phongShader.setFloat("pointLights[0].constant", 1.0f);
         phongShader.setFloat("pointLights[0].linear", 0.09f);
         phongShader.setFloat("pointLights[0].quadratic", 0.032f);
 
         phongShader.setVec3("pointLights[1].position", glm::vec3(1.0f, 2.0f, 0.0f));
         phongShader.setVec3("pointLights[1].ambient", 0.05f, 0.00f, 0.00f);
-        phongShader.setVec3("pointLights[1].diffuse", 0.8f, 0.0f, 0.0f);
-        phongShader.setVec3("pointLights[1].specular", 1.0f, 0.0f, 0.0f);
+        phongShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+        phongShader.setVec3("pointLights[1].specular", 0.4f, 0.4f, 0.4f);
         phongShader.setFloat("pointLights[1].constant", 1.0f);
         phongShader.setFloat("pointLights[1].linear", 0.09f);
         phongShader.setFloat("pointLights[1].quadratic", 0.032f);
