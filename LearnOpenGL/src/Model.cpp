@@ -7,7 +7,14 @@ void Model::loadModel(string const& path)
 {
 	// read file via ASSIMP
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	const aiScene* scene = importer.ReadFile(path, 
+		aiProcess_ValidateDataStructure | 
+		aiProcess_Triangulate			| 
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_PreTransformVertices  |
+		aiProcess_FlipUVs				|
+		aiProcess_SortByPType);
+
 	// check for errors
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 	{
@@ -28,13 +35,18 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 	{
 		// the node object only contains indices to index the actual objects in the scene. 
 		// the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
+		
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		meshes.push_back(processMesh(mesh, scene));
 	}
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		processNode(node->mChildren[i], scene);
+		if (node->mParent)
+		{
+			node->mTransformation *= node->mParent->mTransformation;
+		}
+		processNode(node->mChildren[i], scene);	
 	}
 }
 
@@ -72,16 +84,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 			vec.x = mesh->mTextureCoords[0][i].x;
 			vec.y = mesh->mTextureCoords[0][i].y;
 			vertex.TexCoords = vec;
-			// tangent
-			vector.x = mesh->mTangents[i].x;
-			vector.y = mesh->mTangents[i].y;
-			vector.z = mesh->mTangents[i].z;
-			vertex.Tangent = vector;
-			// bitangent
-			vector.x = mesh->mBitangents[i].x;
-			vector.y = mesh->mBitangents[i].y;
-			vector.z = mesh->mBitangents[i].z;
-			vertex.Bitangent = vector;
 		}
 		else
 			vertex.TexCoords = glm::vec2(0.0f, 0.0f);
@@ -98,12 +100,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	}
 	// process materials
 	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-	// we assume a convention for sampler names in the shaders. Each diffuse texture should be named
-	// as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
-	// Same applies to other texture as the following list summarizes:
-	// diffuse: texture_diffuseN
-	// specular: texture_specularN
-	// normal: texture_normalN
 
 	// 1. diffuse maps
 	vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "material.texture_diffuse");

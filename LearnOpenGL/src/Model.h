@@ -25,7 +25,9 @@ class Model
 		}
 		void Draw(Shader& shader) {
 			for (unsigned int i = 0; i < meshes.size(); i++)
+			{
 				meshes[i].Draw(shader);
+			}
 		}
 	private:
 		void loadModel(string const& path);
